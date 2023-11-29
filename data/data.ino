@@ -6,6 +6,8 @@
 #define IMU_SCL A1
 #define IMU_ADDR 0x68
 
+File outputFile;
+
 #pragma region IMU_CODE
 
 void setPin(int pin, int state)
@@ -247,7 +249,13 @@ int getMinute(){
 #pragma endregion //RTC_CODE
 
 
+#pragma region SD Card
 
+
+
+#pragma endregion
+
+#pragma region CALL ME BABY!
 
 float getTemperature()
 {
@@ -257,30 +265,71 @@ float getTemperature()
   return x;
 }
 
-void getDate(char* buffer){
+String getDate(){
   int month = getMonth();
   int day = getDay();
   int year = getYear();
   int hour = getHour();
   int min = getMinute();
   int sec = getSecond();
-  sprintf(buffer, "%02i:%02i:%02i|%02i/%02i/20%02i", hour, min, sec, month, day, year);
+  String dateString = "";
+  dateString.concat(hour);
+  dateString.concat(":");
+  dateString.concat(min);
+  dateString.concat(":");
+  dateString.concat(sec);
+  dateString.concat("|");
+  dateString.concat(month);
+  dateString.concat("/");
+  dateString.concat(day);
+  dateString.concat("/20");
+  dateString.concat(year);
+  dateString.concat("|");
+  return dateString;
+}
+
+#pragma endregion
+
+void errorBlink(int delayMS){
+  pinMode(3, OUTPUT);
+  while(1){
+    digitalWrite(3, HIGH);
+    delay(delayMS);
+    digitalWrite(3, LOW);
+    delay(delayMS);
+  }
 }
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   Wire.begin();
+
+  if (!SD.begin(10)) {
+    errorBlink(1000);
+  }
+
+  outputFile = SD.open("readings.txt", FILE_WRITE);
+  if (!outputFile) {
+    errorBlink(500);
+  }    
+
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  char buffer[20];
-  getDate(buffer);
-  Serial.print(buffer);
-  Serial.print("|temperature|");
+  
+  String output = getDate();
+  //Serial.print(buffer);s stated above, on most Arduinos, sprint() does not support floats or doubles.
+  //Serial.print("|temperature|");
   float temp = getTemperature();
-  Serial.println(temp);
+  output.concat("temperature|");
+  output.concat(temp);
+
+  Serial.println(output);
+  
+  outputFile.println(output.c_str());
+  outputFile.flush();
   delay(1000);
 }
 
