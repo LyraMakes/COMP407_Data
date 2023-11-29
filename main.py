@@ -33,7 +33,7 @@ def send_data(log_name: str, data: Dict[str, str]):
         f"&time={data['time'].replace(':', '_')}&{data['name']}={data['value']}"
     url = "http://riscy.info/dump.php"
     full_url = url + query_params
-    print(full_url)
+    # print(full_url)
     requests.get(full_url)
 
 
