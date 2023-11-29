@@ -1,4 +1,4 @@
-import serial  # type: ignore
+import serial
 import sys
 from typing import Dict
 import requests
