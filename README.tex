@@ -1,9 +1,71 @@
 \documentclass{article}
+\usepackage[margin=1in]{geometry}
 
 \title{Data Logger Project}
 \author{Alexander M. Dasneves\\Bridgewater State University\\Bridgewater, MA 02325\and Lyra B. Brown\\Bridgewater State University\\Bridgewater, MA 02325}
 \date{\today}
 
+\pagenumbering{gobble}
+
 \begin{document}
   \maketitle
+
+  \section*{Steps Completed}
+  \noindent
+  We completed steps \textbf{1,2,3,5 \& 7}
+  
+  \section*{Wiring}
+  \noindent
+  To wire these devices to the arduino, please connect the wires as such\\
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Device&SDA&SCL\\
+    \hline
+    GY521&A4&A5\\
+    DS1307&A0&A1\\
+    \hline
+  \end{tabular}
+  \vspace{0.1in}
+  \\
+  \noindent
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    Device&CS&MOSI&MISO&SCK/CLK\\
+    \hline
+    SC Card Adapter & 10 & 11 & 12 & 13\\
+    \hline
+  \end{tabular}
+  
+  \section*{Running Code}
+  \noindent
+  To run this code, create and source a venv by running the following code:\\
+  \begin{verbatim}
+python3.10 -m venv venv
+source ./venv/bin/activate
+  \end{verbatim}
+  Then, install the requirements by using the \textit{requirements.txt} file\\
+  \begin{verbatim}
+python3.10 -m pip install -r requirements.txt
+  \end{verbatim}
+  Then, run the code using this command\\
+  \begin{verbatim}
+python3.10 main.py <PORT> <BAUD>
+  \end{verbatim}
+  The baudrate of our Arduino Sketch uses \textbf{\textit{\underline{9600}}}\\
+  \\
+  \textit{Please note:} This project uses \textbf{Requests} rather than \textbf{urllib}, as \textbf{Requests} has become the more ubiquitous and commonly implemented library for HTML requests.
+
+  \section*{Results}
+  Our code produces a \textit{readings.txt} file on the SD Card connected to the arduino. The file will contain the following information:\\
+  \begin{itemize}
+    \item Date of reading
+    \item Time of reading
+    \item Reading Name
+    \item Reading value
+  \end{itemize}
+  This information is also sent down the line through the Serial Connection to the attached computer.
+
 \end{document}
+
+% Hi Maggie!
+% Isn't LaTeX Amazing?
