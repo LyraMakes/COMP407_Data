@@ -1,9 +1,12 @@
 \documentclass{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage[dvipsnames]{xcolor}
 
 \title{Data Logger Project}
 \author{Alexander M. Dasneves\\Bridgewater State University\\Bridgewater, MA 02325\and Lyra B. Brown\\Bridgewater State University\\Bridgewater, MA 02325}
 \date{\today}
+
 
 \pagenumbering{gobble}
 
@@ -35,7 +38,8 @@
     SC Card Adapter & 10 & 11 & 12 & 13\\
     \hline
   \end{tabular}
-  
+  We also added a Debug LED on Pin 3 to help diagnose SD Init Failures.
+
   \section*{Running Code}
   \noindent
   To run this code, create and source a venv by running the following code:\\
@@ -63,8 +67,10 @@ python3.10 main.py <PORT> <BAUD>
     \item Reading Name
     \item Reading value
   \end{itemize}
-  This information is also sent down the line through the Serial Connection to the attached computer.
-
+  This information is also sent down the line through the Serial Connection to the attached computer.\\
+  \\
+  The Python program provided will interpret the data sent my the Arduino, and perform an HTTP GET request to \href{http://riscy.info/dump.php}{\underline{\textcolor{Emerald}{riscy.info/dump.php}}}, where the readings will be saved.\\\\
+  To view all readings collected by the COMP-407 class, visit \href{http://riscy.info/data.txt}{{\underline{\textcolor{Emerald}{riscy.info/data.txt}}}}.
 \end{document}
 
 % Hi Maggie!

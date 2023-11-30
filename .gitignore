@@ -5,3 +5,4 @@ venv/**/*
 *.fdb_latexmk
 *.fls
 *.synctex.gz
+.vscode
